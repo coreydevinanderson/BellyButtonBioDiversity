@@ -63,10 +63,13 @@ function populateInfo() {
 
     var samples = bb_data.samples;
 
+    console.log(bb_data.samples);
+
     samples.forEach(function(ind) {
 
         // Grab the IDs
         if (ind.id === inputID) {
+
             // Grab max of ten
             var otus = ind.otu_ids.slice(0, 10);
             var otus_string = otus.map(item => item.toString());
@@ -75,6 +78,8 @@ function populateInfo() {
 
             // Grab the first ten sample-values
             var sampleValues10 = ind.sample_values.slice(0,10);
+
+            console.log(sampleValues10);
             
             // Set up the bar plot:
         
@@ -85,7 +90,7 @@ function populateInfo() {
                 orientation: "h"
             }
 
-            var bar_data = [trace];
+            var bar_data = [bar_trace];
 
             var bar_layout = {
                 title: "Top Bacterial Cultures Found",
@@ -95,38 +100,36 @@ function populateInfo() {
                         autorange: "reversed"}
             };
 
-            Plotly.newPlot("bar", bar_data, bar_layout);
-        };
+            Plotly.newPlot("bar", bar_data, bar_layout);  
 
-        if (ind === inputID) {
-           
-            // Now the Bubble!
+            // Bubble Chart with otu_id d on x-axis and sample value for that taxon on the y-axis.
+            // Size proportion to sample_value and color gradient mapped to the numeric id (otu_ids).
 
+            var otu_ids = ind.otu_ids;
+            var sample_values = ind.sample_values;
+            var otu_labels = ind.otu_labels;
             
-            var otu_ids = bb_data.samples[0]["otu_ids"];
-            var sample_values = bb_data.samples[0]["sample_values"];
-            var otu_labels = bb_data.samples[0]["otu_lables"];
-            
-            console.log(otu_id);
+            console.log(otu_ids);
             console.log(sample_values);
             console.log(otu_labels);
+            
 
             var bubble_trace = {
-                x: otu_id,
-                y: sample_values,
-                text: otu_labels,
-                mode: 'markers',
-                sizeref: 0.5,
-                marker: {
-                    size = sample_values,
-                    sizemode: 'area'
-                }
+                    x: otu_ids,
+                    y: sample_values,
+                    text: otu_labels,
+                    mode: 'markers',
+                    marker: {
+                        size : sample_values,
+                        color: otu_ids,
+                        sizemode: 'area'
+                    }
             };
 
             var bubble_data = [bubble_trace];
     
-            var layout = {
-                title: 'Bubble Chart',
+            var bubble_layout = {
+                title: "Bubble Chart",
                 xaxis: {title: "Sample ID"},
                 yaxis: {title: "Belly Button Taxa"},
                 showlegend: false,
@@ -134,42 +137,37 @@ function populateInfo() {
                 width: 600
             };
 
-            Plotly.newPlot("bubble", bubble_data bubble_layout);
+            Plotly.newPlot("bubble", bubble_data, bubble_layout);
+
+        };
+    });
+    
+
+    var wfreq_array = metadata.map(item => item.wfreq);
+
+    console.log(wfreq_array);
+
+    metadata.forEach(function(button) {
+        
+        if (button.id === inputID) {
+            var wfreq = button.wfreq;
         };
 
+        var gauge_data = [
+            {
+                // domain: { x: [0, 1], y: [0, 1] },
+                value: wfreq,
+                axis: { range: [null, 9] },
+                title: { text: "Washing Frequency" },
+                type: "indicator",
+                mode: "gauge+number"
+            }
+        ];
+        
+        var gauge_layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+        
+        Plotly.newPlot('gauge', gauge_data, gauge_layout);
     });
-
-    
-    // console.log(otu_strings);    
-    // console.log(sample_values);
-
-    // var trace1 = {
-    //     x: otu_strings,
-    //     y: sample_values,
-    //     text: otu_ids,
-    //     mode: 'markers',
-    //     marker :{
-    //         size: sample_values,
-    //         sizemode: 'area'
-    //     }
-    // };
-
-    // var data = [trace1];
-
-    // var layout = {
-    //     title: 'Bubble Chart',
-    //     xaxis: {title: "Sample ID"},
-    //     yaxis: {title: "Belly Button Taxa", 
-    //             type: "category"},
-    //     showlegend: false,
-    //     height: 600,
-    //     width: 600
-    // };
-
-    // Plotly.newPlot("bubble", data, layout);
-
-    // Gauge
-    
 
 };
 
