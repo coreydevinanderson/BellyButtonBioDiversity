@@ -1,9 +1,14 @@
 # BellyButtonBioDiversity
 
 static/js/app.js  
-static/js/bonus.js //not used...bonus written into app.js 
+
+static/js/bonus.js //not used...bonus written into app.js   
+
 static/js/samples.js // samples.json saved as .js  
+
 index.html  
+
+----------------------------------
 
 Belly button biodiversity dashboard
 
