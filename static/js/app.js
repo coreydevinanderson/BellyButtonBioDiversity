@@ -63,7 +63,6 @@ function populateInfo() {
                 title: { text: "Belly Button Washing Frequency" },
                 type: "indicator",
                 mode: "gauge+number",
-                delta: { reference: 9, increasing: { color: "RebeccaPurple" }},
                 gauge: { 
                         axis: { 
                                 range: [null, 9],
@@ -88,8 +87,6 @@ function populateInfo() {
 
 
     // Bar plot and bubble chart
-
-    // **Still need to specify IDs as hover text**
 
     var samples = bb_data.samples;
 
