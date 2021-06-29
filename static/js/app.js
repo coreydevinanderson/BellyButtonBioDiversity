@@ -76,25 +76,8 @@ function populateInfo() {
                         bgcolor: "lightgray",
                         }
             };
-
-            // var wfreq_array = metadata.map(item => item.wfreq);
-            // console.log(wfreq_array);
             
-            var gauge_data = [gauge_trace];
-
-            // var gauge_data =   [
-            //         {
-            //         domain: { x: [0, 1], y: [0, 1] },
-            //         value: wfreq,
-            //         axis: { range: [null, 9] },
-            //         title: { text: "Washing Frequency" },
-            //         type: "indicator",
-            //         mode: "gauge+number",
-            //         delta: { reference: 9 },
-            //         gauge: { axis: { range: [null, 9] }}
-            //         }
-            // ];
-            
+            var gauge_data = [gauge_trace];            
             var gauge_layout = {width: 600, height: 500, xaxis: { range: [null, 9] }};
                 
             Plotly.newPlot('gauge', gauge_data, gauge_layout);
@@ -102,9 +85,9 @@ function populateInfo() {
         };
     });
 
-    // Add
 
-    // Bar plot
+
+    // Bar plot and bubble chart
 
     // **Still need to specify IDs as hover text**
 
@@ -123,6 +106,7 @@ function populateInfo() {
 
             // Grab the first ten sample-values
             var sampleValues10 = ind.sample_values.slice(0,10);
+            var sampleOTU10 = ind.otu_labels.slice(0, 10);
 
             console.log(sampleValues10);
             
@@ -132,6 +116,7 @@ function populateInfo() {
                 x: sampleValues10,
                 y: otus_string,
                 type: "bar",
+                text: sampleOTU10,
                 orientation: "h"
             };
 
