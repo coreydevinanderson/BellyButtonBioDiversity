@@ -42,6 +42,7 @@ function populateInfo() {
     // Have to parseINT(inputID) to match JSON.
 
     metadata.forEach(function(ind) {
+        
         if (ind.id === parseInt(inputID)) {
             var pBody = d3.select(".panel-body");
             pBody.html("");
@@ -52,6 +53,52 @@ function populateInfo() {
             pBody.append("p").text(`LOCATION: ${ind.location}`);
             pBody.append("p").text(`BBTYPE: ${ind.bbtype}`);
             pBody.append("p").text(`WFREQ: ${ind.wfreq}`);
+            console.log(`Handy washing frequency: ${ind.wfreq}`);
+
+            var wfreq = ind.wfreq;
+            console.log(`Say it again: ${wfreq}`);
+
+            var gauge_trace = {
+                value: wfreq,
+                title: { text: "Belly Button Washing Frequency" },
+                type: "indicator",
+                mode: "gauge+number",
+                delta: { reference: 9, increasing: { color: "RebeccaPurple" }},
+                gauge: { 
+                        axis: { 
+                                range: [null, 9],
+                                tickwidth: 2,
+                                tickmode: "array", 
+                                tickvals: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 
+                                ticktext: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+                              },
+                        bar: { color: "darkblue" },
+                        bgcolor: "lightgray",
+                        }
+            };
+
+            // var wfreq_array = metadata.map(item => item.wfreq);
+            // console.log(wfreq_array);
+            
+            var gauge_data = [gauge_trace];
+
+            // var gauge_data =   [
+            //         {
+            //         domain: { x: [0, 1], y: [0, 1] },
+            //         value: wfreq,
+            //         axis: { range: [null, 9] },
+            //         title: { text: "Washing Frequency" },
+            //         type: "indicator",
+            //         mode: "gauge+number",
+            //         delta: { reference: 9 },
+            //         gauge: { axis: { range: [null, 9] }}
+            //         }
+            // ];
+            
+            var gauge_layout = {width: 600, height: 500, xaxis: { range: [null, 9] }};
+                
+            Plotly.newPlot('gauge', gauge_data, gauge_layout);
+            
         };
     });
 
@@ -62,8 +109,6 @@ function populateInfo() {
     // **Still need to specify IDs as hover text**
 
     var samples = bb_data.samples;
-
-    console.log(bb_data.samples);
 
     samples.forEach(function(ind) {
 
@@ -88,7 +133,7 @@ function populateInfo() {
                 y: otus_string,
                 type: "bar",
                 orientation: "h"
-            }
+            };
 
             var bar_data = [bar_trace];
 
@@ -122,7 +167,8 @@ function populateInfo() {
                     marker: {
                         size : sample_values,
                         color: otu_ids,
-                        sizemode: 'area'
+                        sizemode: 'area',
+                        sizeref: 0.1
                     }
             };
 
@@ -142,33 +188,6 @@ function populateInfo() {
         };
     });
     
-
-    var wfreq_array = metadata.map(item => item.wfreq);
-
-    console.log(wfreq_array);
-
-    metadata.forEach(function(button) {
-        
-        if (button.id === inputID) {
-            var wfreq = button.wfreq;
-        };
-
-        var gauge_data = [
-            {
-                // domain: { x: [0, 1], y: [0, 1] },
-                value: wfreq,
-                axis: { range: [null, 9] },
-                title: { text: "Washing Frequency" },
-                type: "indicator",
-                mode: "gauge+number"
-            }
-        ];
-        
-        var gauge_layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
-        
-        Plotly.newPlot('gauge', gauge_data, gauge_layout);
-    });
-
 };
 
 
