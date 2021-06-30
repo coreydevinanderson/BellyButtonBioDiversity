@@ -7,6 +7,7 @@
 index.html  
 samples.json  
 README.md 
+
 static/js/app.js  
 static/js/bonus.js //not used...bonus written into app.js   
 
