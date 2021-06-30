@@ -1,3 +1,6 @@
+
+d3.json("samples.json").then(function(bb_data) {
+
 console.log(Object.keys(bb_data));
 
 // names, metadata, samples
@@ -172,6 +175,7 @@ function populateInfo() {
     
 };
 
+});
 
 
 
