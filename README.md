@@ -2,7 +2,8 @@
 
 # Directory Structure:
 
-// .js files are in static/js
+// .js files are in static/js 
+
 static/js/app.js  
 static/js/bonus.js //not used...bonus written into app.js   
 
