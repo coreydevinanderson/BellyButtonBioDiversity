@@ -10,7 +10,7 @@ README.md
 
 static/js/app.js 
 
-----------------------------------
+-----
 
 Belly button biodiversity dashboard
 
@@ -24,3 +24,7 @@ There are three plots:
   3) a gauge chart (showing how many times a day on averge the subject washed their belly button.
 
 There is also a panel that contains the metadata for each individual.
+
+----
+
+All code written by Corey D. Anderson
